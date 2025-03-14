@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> {{ quiz.title }} </title>
+    </head>
+    <body>
+        <h2> {{ question.text }} </h2>
+        <form method="POST" action="{% url 'start_quiz' quiz.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="question_id" value="{{ question.id }}">
+            <button type="submit" name="selected_option" value="1">{{ question.option1 }}</button>
+            <button type="submit" name="selected_option" value="2">{{ question.option2 }}</button>
+            <button type="submit" name="selected_option" value="3">{{ question.option3 }}</button>
+            <button type="submit" name="selected_option" value="4">{{ question.option4 }}</button>
+        </form>
+    </body>
+</html>

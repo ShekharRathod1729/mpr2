@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> {{ quiz.title }} - Results </title>
+    </head>
+    <body>
+        <h2> Quiz Completed! </h2>
+        <p> Your final score is: {{ quiz_history.score }} </p>
+        <p> Your total points: {{ request.user.userprofile.points }} </p>
+    </body>
+</html>

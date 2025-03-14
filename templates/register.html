@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTrivia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #444);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+            width: 400px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.08);
+        }
+        .title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffcc00;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        input {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            transition: background 0.3s;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        input:focus {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        button {
+            background: #ffcc00;
+            color: black;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        button:hover {
+            background: #e6b800;
+        }
+        .toggle-link {
+            margin-top: 15px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #ffcc00;
+            text-decoration: underline;
+            transition: 0.3s;
+        }
+        .toggle-link:hover {
+            color: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="signup-form">
+        <div class="title">TimeTrivia</div>
+        <h2>Sign Up</h2>
+        
+        {% if messages %}
+		{% for message in messages %}
+			<p class="error-message">{{ message }}</p>
+		{% endfor %}
+	{% endif %}
+
+	<form method="POST" action="{% url 'register' %}">
+		{% csrf_token %}
+	        <input type="text" name="username" placeholder="Username" required>
+	        <input type="text" name="full_name" placeholder="Full Name" required>	
+	        <input type="email" name="email" placeholder="Email" required>
+	        <input type="password" name="password" placeholder="Password" required>
+	        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+	        <button>Sign Up</button>
+	</form>
+        <div class="toggle-link" onclick="toggleForms()">Already have an account? Log In</div>
+    </div>
+
+    <div class="container" id="login-form" style="display:none;">
+        <div class="title">TimeTrivia</div>
+        <h2>Log In</h2>
+
+	{% if messages %}
+		{% for message in messages %}
+			<p class="error-message">{{ message }}</p>
+		{% endfor %}
+	{% endif %}
+
+	<form method="POST" action="{% url 'login' %}">
+		{% csrf_token %}
+		
+        	<input type="text" name="username" placeholder="Username or Email" required>
+        	<input type="password" name="password" placeholder="Password" required>
+       
+		<button>Log In</button>
+	</form>
+	<div class="toggle-link" onclick="toggleForms()">Don't have an account? Sign Up</div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            let signupForm = document.getElementById('signup-form');
+            let loginForm = document.getElementById('login-form');
+
+            if (signupForm.style.display === 'none') {
+                signupForm.style.display = 'block';
+                loginForm.style.display = 'none';
+            } else {
+                signupForm.style.display = 'none';
+                loginForm.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

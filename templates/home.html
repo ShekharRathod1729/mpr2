@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+     <title>Home page</title>
+     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+     {% load static %}
+     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+   </head>
+<body>
+   <div class="navbar">
+      <a href="/" class="title">TimeTrivia</a>
+      <div class="auth">
+       <a href="{% url 'login' %}"><button id="login">Login</button></a>
+       <a href="{% url 'register' %}"><button id="signup">Sign Up</button></a>
+      </div>    
+   </div>
+
+  <h1>Test your history knowledge</h1>
+   <section>
+      <div class="card french">
+
+         <a href="{% url 'start_quiz' 1 %}"><img src="{% static 'images/french.jpeg' %}"></a>
+         <div>
+            <p class="name"><a href="{% url 'start_quiz' 1 %}">French Revolution</a></p>
+         </div>
+      </div>
+
+      <div class="card american">
+         <a href="{% url 'start_quiz' 2 %}"><img src="{% static 'images/american.jpeg' %}"></a>
+         <div><p class="name"><a href="{% url 'start_quiz' 2 %}">American Revolution</a></p></div>
+      </div>
+
+      <div class="card haitian">
+         <a href="{% url 'start_quiz' 3 %}"><img src="{% static 'images/haitian.jpeg' %}"></a>
+         <div><p class="name"><a href="{% url 'start_quiz' 3 %}">Haitian Revolution</a></p></div>
+      </div>
+
+      <div class="card xinhai">
+         <a href="{% url 'start_quiz' 4 %}"><img src="{% static 'images/xinhai.jpeg' %}"></a>
+         <div><p class="name"><a href="{% url 'start_quiz' 4 %}">Xinhai Revolution</a></p></div>
+      </div>
+
+      <div class="card europe">
+         <a href="{% url 'start_quiz' 5 %}"><img src="{% static 'images/europe.jpeg' %}"></a>
+         <div><p class="name"><a href="{% url 'start_quiz' 5 %}">European Revolutions</a></p></div>
+      </div>
+
+      <div class="card mexican">
+         <a href="{% url 'start_quiz' 6 %}"><img src="{% static 'images/mexican.jpeg' %}"></a>
+         <div><p class="name"><a href="{% url 'start_quiz' 6 %}">Mexican Revolution</a></p></div>
+      </div>
+   </section>
+</body>
+</html>

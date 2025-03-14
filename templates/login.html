@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TimeTrivia - Log In</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron:wght@400;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #444);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      color: white;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+      width: 400px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s ease-in-out;
+    }
+    .container:hover {
+      transform: scale(1.08);
+    }
+    .title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #ffcc00;
+    }
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+      transition: background 0.3s;
+    }
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    input:focus {
+      background: rgba(255, 255, 255, 0.5);
+    }
+    button {
+      background: #ffcc00;
+      color: black;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    button:hover {
+      background: #e6b800;
+    }
+    .toggle-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ffcc00;
+      text-decoration: underline;
+      transition: 0.3s;
+    }
+    .toggle-link:hover {
+      color: #e6b800;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">TimeTrivia</div>
+    <h2>Log In</h2>
+    {% if messages %}
+      <div style="color: red; font-weight: bold; margin-bottom: 15px;">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <form action="{% url 'login' %}" method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Username or Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button>Log In</button>
+    </form>
+    <div class="toggle-link">
+      <a href="{% url 'register' %}" style="color: inherit; text-decoration: none;">
+        Don't have an account? Sign Up
+      </a>
+    </div>
+  </div>
+</body>
+</html>
+
