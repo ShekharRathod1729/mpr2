@@ -13,8 +13,13 @@
    <div class="navbar">
       <a href="/" class="title">TimeTrivia</a>
       <div class="auth">
-       <a href="{% url 'login' %}"><button id="login">Login</button></a>
-       <a href="{% url 'register' %}"><button id="signup">Sign Up</button></a>
+         {% if not request.user.is_authenticated %}
+            <a href="{% url 'login' %}"><button id="login">Login</button></a>
+            <a href="{% url 'register' %}"><button id="signup">Sign Up</button></a>
+         {% else %}
+            <a href="{% url 'user_dashboard' %}"><button id="profile">Profile</button></a>
+            <a href="{% url 'logout' %}"><button id="logout">Logout</button></a>
+         {% endif %}
       </div>    
    </div>
 

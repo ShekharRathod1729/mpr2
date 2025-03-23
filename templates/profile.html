@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}</h2>
+
+<div class="dashboard">
+    <p><strong>Quizzes Attempted: </strong> {{ quizzes_attempted }} </p>
+    <p><strong>Total Points: </strong> {{ total_points }} </p>
+</div>
+
+<h2>Recent Quiz Attempts</h2>
+<table>
+    <tr>
+        <th>Quiz</th>
+        <th>Score</th>
+        <th>Date</th>
+    </tr>
+    {% for attempt in recent_attempts %}
+    <tr>
+        <td>{{ attempt.quiz.title }}</td>  <!-- FIXED: Use .title instead of .name -->
+        <td>{{ attempt.score }}</td>
+        <td>{{ attempt.timestamp }}</td>
+    </tr>
+    {% empty %}
+    <tr> 
+        <td colspan="3">No recent attempts.</td>
+    </tr>
+    {% endfor %}
+</table>
+<h2>Leaderboard</h2>
+<table>
+    <tr>
+        <th>Rank</th>
+        <th>User</th>
+        <th>Points</th>
+    </tr>
+    {% for user in leaderboard %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ user.user.username }}</td>
+        <td>{{ user.points }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+

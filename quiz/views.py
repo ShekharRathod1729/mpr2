@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import UserProfile, Quiz, Question, UserQuizHistory
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 
 def register(request):
     if request.method == "POST":
@@ -44,7 +45,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Login successful!")
-            return redirect("home")
+            return redirect("user_dashboard")
         else:
             messages.error(request, "Invalid username or password.")
             return redirect("login")
@@ -103,3 +104,26 @@ def quiz_results(request, quiz_id):
     quiz_history = get_object_or_404(UserQuizHistory, user=request.user, quiz=quiz)
 
     return render(request, "quiz_results.html", {"quiz": quiz, "quiz_history": quiz_history})
+
+@login_required
+def user_dashboard(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    quizzes_attempted = UserQuizHistory.objects.filter(user=request.user).count()
+    total_points = user_profile.points
+    recent_attempts = UserQuizHistory.objects.filter(user=request.user).order_by('-timestamp')[:5]
+
+    leaderboard = UserProfile.objects.order_by('-points')[:5]    
+
+    context = {
+            "user_profile": user_profile,
+            "quizzes_attempted": quizzes_attempted,
+            "total_points": total_points,
+            "recent_attempts": recent_attempts,
+            "leaderboard": leaderboard,
+        }
+    return render(request, "profile.html", context)
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Logged out successfully!")
+    return redirect("home")
