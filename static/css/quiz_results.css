@@ -1,0 +1,25 @@
+* {
+    font-family: "Quicksand", serif;
+}
+body {
+    
+    background: #e8d4a3;
+   
+}
+
+h2,p{
+    text-align:center;
+}
+
+h2{
+    font-size:50px;
+    color:#704214 ;
+    margin-bottom:150px;
+    margin-top:100px;
+}
+
+p{
+    font-size:35px;
+    color:#5A3E26;
+    font-weight:500;
+}

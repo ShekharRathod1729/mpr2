@@ -1,38 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>profile page</title>
+   <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+   {% load static %}
+   <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+</head>
 {% extends "base.html" %}
 
 {% block content %}
+<body>
 <h2>Welcome, {{ user.username }}</h2>
 
 <div class="dashboard">
-    <p><strong>Quizzes Attempted: </strong> {{ quizzes_attempted }} </p>
-    <p><strong>Total Points: </strong> {{ total_points }} </p>
+    <p class="quizattempt">Quizzes Attempted: {{ quizzes_attempted }} </p>
+    <p class="total points">Total Points: {{ total_points }}</p>
 </div>
 
 <h2>Recent Quiz Attempts</h2>
-<table>
-    <tr>
-        <th>Quiz</th>
-        <th>Score</th>
-        <th>Date</th>
+<table class="recentquiz">
+    <tr class="recentquizbar">
+        <th class="quizname">Quiz</th>
+        <th class="score">Score</th>
+        <th class="date">Date</th>
     </tr>
     {% for attempt in recent_attempts %}
-    <tr>
-        <td>{{ attempt.quiz.title }}</td>  <!-- FIXED: Use .title instead of .name -->
+    <tr >
+        <td>{{ attempt.quiz.title }}</td>  
         <td>{{ attempt.score }}</td>
         <td>{{ attempt.timestamp }}</td>
     </tr>
     {% empty %}
     <tr> 
-        <td colspan="3">No recent attempts.</td>
+        <td colspan="3" class="noattempt">No recent attempts.</td>
     </tr>
     {% endfor %}
 </table>
 <h2>Leaderboard</h2>
-<table>
-    <tr>
-        <th>Rank</th>
-        <th>User</th>
-        <th>Points</th>
+<table class="leaderboard">
+    <tr class="leaderboardbar">
+        <th class="rank">Rank</th>
+        <th class="user">User</th>
+        <th class="points">Points</th>
     </tr>
     {% for user in leaderboard %}
     <tr>
@@ -44,4 +57,5 @@
 </table>
 
 {% endblock %}
-
+</body>
+</html>
