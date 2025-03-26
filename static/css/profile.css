@@ -1,0 +1,50 @@
+*{
+    font-family: "Quicksand", serif;
+}
+
+body{
+    background-color:#e8d4a3;
+
+}
+
+h2{
+    text-align:center;
+    font-size:35px;
+    font-weight:1500;
+    margin-bottom:30px;
+    color: #704214;
+}
+
+.dashboard .quizattempt,
+.dashboard .totalpoints {
+    text-align: center;
+    font-weight: 700;
+    font-size:20px;
+}
+
+.recentquiz,.leaderboard {
+    width: 80%;  
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse; 
+}
+
+.recentquiz .recentquizbar .quizname,
+.recentquiz .recentquizbar .score,
+.recentquiz .recentquizbar .date{
+    font-size:20px;
+}
+
+.recentquiz .noattempt .text{
+    font-size:18px;
+}
+
+.leaderboard .leaderboardbar .rank,
+.leaderboard .leaderboardbar .user,
+.leaderboard .leaderboardbar .points{
+    font-size:20px;
+}
+
+.leaderboard{
+    margin-bottom:30px;
+}

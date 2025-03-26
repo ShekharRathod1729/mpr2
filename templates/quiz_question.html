@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title> {{ quiz.title }} </title>
-    </head>
-    <body>
-        <h2> {{ question.text }} </h2>
-        <form method="POST" action="{% url 'start_quiz' quiz.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="question_id" value="{{ question.id }}">
-            <button type="submit" name="selected_option" value="1">{{ question.option1 }}</button>
-            <button type="submit" name="selected_option" value="2">{{ question.option2 }}</button>
-            <button type="submit" name="selected_option" value="3">{{ question.option3 }}</button>
-            <button type="submit" name="selected_option" value="4">{{ question.option4 }}</button>
-        </form>
-    </body>
+<head>
+    {% load static %}
+    <title>{{ quiz.title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/quiz_question.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h2 class="question">{{ question.text }}</h2>
+    <form class="options" method="POST" action="{% url 'start_quiz' quiz.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+        <button class="option1" type="submit" name="selected_option" value="1">{{ question.option1 }}</button>
+        <button class="option2" type="submit" name="selected_option" value="2">{{ question.option2 }}</button>
+        <button class="option3" type="submit" name="selected_option" value="3">{{ question.option3 }}</button>
+        <button class="option4" type="submit" name="selected_option" value="4">{{ question.option4 }}</button>
+    </form>
+</body>
 </html>
