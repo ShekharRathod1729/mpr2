@@ -8,12 +8,27 @@
         <link rel="stylesheet" href="{% static 'css/quiz_results.css' %}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <h2>Congratulations! Quiz Completed!</h2>
-        <p>Your final score is: {{ quiz_history.score }}</p>
-        <p>Your total points: {{ request.user.userprofile.points }}</p>
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="/profile/">Profile</a>
+            <a href="/leaderboard/">Leaderboard</a>
+            {% if user.is_authenticated %}
+                <a href="/logout/">Logout</a>
+            {% else %}
+                <a href="/login/">Login</a>
+            {% endif %}
+        </nav>
+
+        <!-- Congratulations Section -->
+        <div class="results-container">
+            <h2>Congratulations! Quiz Completed!</h2>
+            <p>Your final score is: <span>{{ quiz_history.score }}</span></p>
+            <p>Your total points: <span>{{ request.user.userprofile.points }}</span></p>
+        </div>
     </body>
 </html>
 

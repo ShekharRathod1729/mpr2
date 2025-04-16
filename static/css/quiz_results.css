@@ -1,25 +1,108 @@
+/* ===== Base Styles ===== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Playfair+Display:wght@400;700&display=swap');
+
+:root {
+    --primary: #3a86ff;
+    --primary-dark: #2667cc;
+    --secondary: #8338ec;
+    --accent: #ff006e;
+    --dark: #1a1a2e;
+    --light: #f8f9fa;
+    --text: #2b2d42;
+    --text-light: #8d99ae;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
 * {
-    font-family: "Quicksand", serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
 body {
-    
-    background: #e8d4a3;
-   
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--light);
+    color: var(--text);
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-h2,p{
-    text-align:center;
+/* ===== Navigation Bar ===== */
+.navbar {
+    height: 70px;
+    width: 100%;
+    background-color: var(--dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0 5%;
+    box-shadow: var(--shadow);
 }
 
-h2{
-    font-size:50px;
-    color:#704214 ;
-    margin-bottom:150px;
-    margin-top:100px;
+.navbar a {
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color var(--transition), transform 0.2s;
 }
 
-p{
-    font-size:35px;
-    color:#5A3E26;
-    font-weight:500;
+.navbar a:hover {
+    background-color: var(--primary);
+    transform: translateY(-2px);
 }
+
+/* ===== Results Container ===== */
+.results-container {
+    max-width: 800px;
+    margin: 60px auto;
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow);
+    border-radius: 10px;
+    padding: 40px 20px;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 30px;
+}
+
+p {
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 1.5rem;
+    color: var(--text);
+    font-weight: 500;
+    margin: 15px 0;
+}
+
+p span {
+    display: block;
+    font-family: 'Playfair Display', serif; /* Elegant serif font */
+    font-size: 2rem; /* Larger size for emphasis */
+    font-weight: 700; /* Bold text */
+    color: var(--primary); /* Highlight color for the score */
+    margin-top: 10px; /* Adds separation between label and value */
+    letter-spacing: 0.5px; /* Slightly spaced-out text for a polished feel */
+    transition: var(--transition); /* Smooth hover or focus effects */
+}
+
+/* Optional Hover Effect */
+p span:hover {
+    color: var(--accent); /* Changes color slightly for interactivity */
+    transform: scale(1.05); /* Adds subtle zoom-in effect */
+}
+

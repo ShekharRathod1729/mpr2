@@ -1,50 +1,166 @@
-*{
-    font-family: "Quicksand", serif;
+/* ===== Base Styles ===== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;500;700&display=swap');
+
+:root {
+    --primary: #3a86ff;
+    --primary-dark: #2667cc;
+    --secondary: #8338ec;
+    --accent: #ff006e;
+    --dark: #1a1a2e;
+    --light: #f8f9fa;
+    --text: #2b2d42;
+    --text-light: #8d99ae;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
-body{
-    background-color:#e8d4a3;
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-h2{
-    text-align:center;
-    font-size:35px;
-    font-weight:1500;
-    margin-bottom:30px;
-    color: #704214;
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.dashboard .quizattempt,
-.dashboard .totalpoints {
+/* ===== Navigation Bar ===== */
+nav {
+    background-color: var(--dark);
+    width: 100%;
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navbar a {
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.navbar a:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ===== Container ===== */
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 40px auto;
     text-align: center;
+}
+
+/* ===== Section Headings ===== */
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+/* ===== Dashboard ===== */
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.dashboard p {
+    font-size: 1.3rem;
+    font-family: 'Quicksand', sans-serif;
     font-weight: 700;
-    font-size:20px;
+    background: var(--card-bg);
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    flex: 1;
+    max-width: 300px;
+    text-align: 300px;
 }
 
-.recentquiz,.leaderboard {
-    width: 80%;  
-    margin-left: auto;
-    margin-right: auto;
-    border-collapse: collapse; 
+.dashboard span {
+    color: var(--secondary);
 }
 
-.recentquiz .recentquizbar .quizname,
-.recentquiz .recentquizbar .score,
-.recentquiz .recentquizbar .date{
-    font-size:20px;
+/* ===== Tables ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.recentquiz .noattempt .text{
-    font-size:18px;
+thead {
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
 }
 
-.leaderboard .leaderboardbar .rank,
-.leaderboard .leaderboardbar .user,
-.leaderboard .leaderboardbar .points{
-    font-size:20px;
+thead th {
+    font-family: 'Playfair Display', serif;
+    padding: 15px;
+    font-size: 1rem;
 }
 
-.leaderboard{
-    margin-bottom:30px;
+tbody tr {
+    transition: background-color 0.3s ease;
 }
+
+tbody tr:nth-child(odd) {
+    background-color: var(--light);
+}
+
+tbody tr:hover {
+    background-color: rgba(58, 134, 255, 0.1);
+}
+
+td, th {
+    font-family: 'Quicksand', sans-serif;
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.no-attempt, .no-leaderboard {
+    color: var(--accent);
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ===== Table Margins ===== */
+.recent-quiz, .leaderboard {
+    margin-bottom: 30px;
+}
+

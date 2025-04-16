@@ -1,0 +1,106 @@
+/* ===== Base Styles ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    overflow: hidden;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    width: 360px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+}
+
+.title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffcc00;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    color: #eaeaea;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 0.9rem;
+    outline: none;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.9); /* Increased opacity for better visibility */
+    font-weight: 500; /* Added weight for a bolder appearance */
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+button {
+    background: #ffcc00;
+    color: #212121;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+button:hover {
+    background-color: #e6b800;
+    transform: translateY(-3px);
+}
+
+.toggle-link {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #ffcc00;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.toggle-link:hover {
+    color: #e6b800;
+}
