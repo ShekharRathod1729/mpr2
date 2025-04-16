@@ -58,45 +58,55 @@ def home(request):
 @login_required
 def start_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
-    questions= Question.objects.filter(quiz=quiz)
+    first_q = Question.objects.filter(quiz=quiz).first()
+    return redirect("quiz_question", quiz_id=quiz.id, question_id=first_q.id)
 
-    if request.method == "POST":
-        question_id = int(request.POST["question_id"])
-        selected_option = int(request.POST["selected_option"])
-
-        question = get_object_or_404(Question, id=question_id)
-
-        quiz_history, created = UserQuizHistory.objects.get_or_create(user=request.user, quiz=quiz)
-
-        if selected_option == question.correct_option:
-            quiz_history.score += 10
-            quiz_history.save()
-
-        next_question = questions.filter(id__gt=question_id).first()
-
-        if next_question:
-            return redirect("quiz_question", quiz_id=quiz.id, question_id=next_question.id)
-
-        else:
-            quiz_history.completed = True
-            quiz_history.save()
-
-            user_profile = request.user.userprofile
-            user_profile.points += quiz_history.score
-            user_profile.save()
-
-            messages.success(request, f"Quiz completed! Your score: {quiz_history.score}")       
-            return redirect("quiz_results", quiz_id=quiz.id)
-        
-    first_question = questions.first()
-    return redirect("quiz_question", quiz_id=quiz.id, question_id=first_question.id)
 
 @login_required
 def quiz_question(request, quiz_id, question_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     question = get_object_or_404(Question, id=question_id, quiz=quiz)
+    feedback = None
+    correct_answer = None
+    selected_option = None
 
-    return render(request, "quiz_question.html", {"quiz": quiz, "question": question})
+    if request.method == "POST":
+        selected_option = int(request.POST.get("selected_option", 0))
+        is_correct = selected_option == question.correct_option
+        correct_answer = question.correct_option
+        
+        # Store the answer in session or database
+        request.session['last_answer'] = {
+            'question_id': question_id,
+            'is_correct': is_correct,
+            'selected_option': selected_option,
+            'correct_answer': correct_answer
+        }
+        
+        feedback = {
+            'is_correct': is_correct,
+            'correct_answer': correct_answer,
+            'selected_option': selected_option
+        }
+
+    options = [
+        {"text": question.option1, "value": 1},
+        {"text": question.option2, "value": 2},
+        {"text": question.option3, "value": 3},
+        {"text": question.option4, "value": 4},
+    ]
+
+    next_question = Question.objects.filter(quiz=quiz, id__gt=question_id).order_by('id').first()
+    
+    return render(request, "quiz_question.html", {
+        "quiz": quiz,
+        "question": question,
+        "options": options,
+        "feedback": feedback,
+        "correct_answer": correct_answer,
+        "selected_option": selected_option,
+        "next_question": next_question
+    })
 
 @login_required
 def quiz_results(request, quiz_id):

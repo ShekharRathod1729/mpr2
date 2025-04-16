@@ -105,3 +105,39 @@ body {
     white-space: nowrap; /* Prevents text wrapping */
     text-overflow: ellipsis; /* Adds "..." if the text is too long */
 }
+
+/* === Updated Feedback Styles === */
+button.option.correct {
+  background-color: #4CAF50 !important;
+  color: white !important;
+  border: 2px solid #388E3C !important;
+}
+
+button.option.incorrect {
+  background-color: #f44336 !important;
+  color: white !important;
+  border: 2px solid #D32F2F !important;
+}
+
+button.option:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+/* === Next Button Styles === */
+.next-button {
+  background: var(--secondary);
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  margin-top: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.next-button:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
