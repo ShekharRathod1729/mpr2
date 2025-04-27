@@ -5,6 +5,7 @@ from django.contrib import messages
 from .models import UserProfile, Quiz, Question, UserQuizHistory
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+import random
 
 def register(request):
     if request.method == "POST":
@@ -44,7 +45,6 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            messages.success(request, "Login successful!")
             return redirect("user_dashboard")
         else:
             messages.error(request, "Invalid username or password.")
@@ -58,9 +58,10 @@ def home(request):
 @login_required
 def start_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
-    first_q = Question.objects.filter(quiz=quiz).first()
+    all_questions = list(Question.objects.filter(quiz=quiz).order_by('?'))[:5]
+    request.session['quiz_questions'] = [q.id for q in all_questions]
+    first_q = all_questions[0]
     return redirect("quiz_question", quiz_id=quiz.id, question_id=first_q.id)
-
 
 @login_required
 def quiz_question(request, quiz_id, question_id):
@@ -74,6 +75,12 @@ def quiz_question(request, quiz_id, question_id):
         selected_option = int(request.POST.get("selected_option", 0))
         is_correct = selected_option == question.correct_option
         correct_answer = question.correct_option
+
+        if 'quiz_score' not in request.session:
+            request.session['quiz_score'] = 0
+        
+        if is_correct:
+            request.session['quiz_score'] += 10
         
         # Store the answer in session or database
         request.session['last_answer'] = {
@@ -96,7 +103,10 @@ def quiz_question(request, quiz_id, question_id):
         {"text": question.option4, "value": 4},
     ]
 
-    next_question = Question.objects.filter(quiz=quiz, id__gt=question_id).order_by('id').first()
+    question_ids = request.session.get('quiz_questions', [])
+    current_index = question_ids.index(question.id) if question.id in question_ids else -1
+    next_question_id = question_ids[current_index + 1] if current_index + 1 < len(question_ids) else None
+    next_question = Question.objects.filter(id=next_question_id).first() if next_question_id else None
     
     return render(request, "quiz_question.html", {
         "quiz": quiz,
@@ -111,7 +121,22 @@ def quiz_question(request, quiz_id, question_id):
 @login_required
 def quiz_results(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
-    quiz_history = get_object_or_404(UserQuizHistory, user=request.user, quiz=quiz)
+    
+    if 'quiz_score' in request.session:
+        quiz_history = UserQuizHistory.objects.create(
+            user=request.user,
+            quiz=quiz,
+            score=request.session['quiz_score']
+        )
+
+        user_profile = request.user.userprofile
+        user_profile.points += request.session['quiz_score']
+        user_profile.save()
+
+    if 'quiz_questions' in request.session:
+        del request.session['quiz_questions']
+    if 'quiz_score' in request.session:
+        del request.session['quiz_score']
 
     return render(request, "quiz_results.html", {"quiz": quiz, "quiz_history": quiz_history})
 
@@ -135,5 +160,4 @@ def user_dashboard(request):
 
 def logout_view(request):
     logout(request)
-    messages.success(request, "Logged out successfully!")
     return redirect("home")
